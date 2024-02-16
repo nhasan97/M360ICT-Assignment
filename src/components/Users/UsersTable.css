@@ -1,0 +1,30 @@
+table {}
+
+table thead {
+    background-color: #FAFBFC !important;
+    height: 44px !important;
+    border-radius: 12px !important;
+}
+
+table thead tr {
+    height: 44px !important;
+}
+
+table thead tr th {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: #4E5D78 !important;
+}
+
+table thead tr th::before {
+    content: none !important;
+}
+
+table body tr {
+    height: 60px !important;
+
+}
+
+.ant-table-cell {
+    border-bottom: none !important;
+}

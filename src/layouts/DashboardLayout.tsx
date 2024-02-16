@@ -8,20 +8,17 @@ import Navbar from "../components/Navbar";
 const { Content } = Layout;
 
 const layoutStyle = {
-  // maxWidth: "calc(100% - 8px)",
   maxWidth: "calc(1440px)",
-  width: "calc(100%)",
+  width: "100%",
   height: "100vh",
   margin: "0px auto",
   borderRadius: 8,
-  overflow: "hidden",
 };
 
 const contentStyle: React.CSSProperties = {
   textAlign: "center",
-  minHeight: 120,
+  height: "calc(100vh - 77px)",
   lineHeight: "120px",
-  // color: "#fff",
   backgroundColor: "white",
 };
 
