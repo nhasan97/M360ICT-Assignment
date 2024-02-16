@@ -5,6 +5,7 @@ import menu1 from "../../assets/menu 1.png";
 import user1 from "../../assets/user 1.png";
 import invoice1 from "../../assets/invoice 1.png";
 import "./Sidebar.css";
+import { useNavigate } from "react-router-dom";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -55,9 +56,19 @@ const menuHeadingStyle: React.CSSProperties = {
 };
 
 const SidebarMenu = () => {
+  const navigate = useNavigate();
+
   const onClick: MenuProps["onClick"] = (e) => {
     console.log("click ", e);
+    if (e.key === "1") {
+      navigate("/");
+    } else if (e.key === "2") {
+      navigate("/users");
+    } else {
+      navigate("/sales");
+    }
   };
+
   return (
     <>
       <p style={menuHeadingStyle}>PAGES</p>
