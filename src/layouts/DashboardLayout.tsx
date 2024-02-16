@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { Layout, Flex } from "antd";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/Sidebar/Sidebar";
 import Navbar from "../components/Navbar";
 // import CustomFooter from "../components/CustomFooter";
 
@@ -11,7 +11,7 @@ const layoutStyle = {
   // maxWidth: "calc(100% - 8px)",
   maxWidth: "calc(1440px)",
   width: "calc(100%)",
-  height: "100%",
+  height: "100vh",
   margin: "0px auto",
   borderRadius: 8,
   overflow: "hidden",
