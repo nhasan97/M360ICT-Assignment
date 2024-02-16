@@ -5,3 +5,7 @@
     padding-left: 17px !important;
     border-radius: 12px !important;
 }
+
+.menu-ul ul li:hover {
+    background-color: #F0F5FA !important;
+}
