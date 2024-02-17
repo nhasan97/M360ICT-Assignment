@@ -61,11 +61,11 @@ const SidebarMenu = () => {
   const onClick: MenuProps["onClick"] = (e) => {
     console.log("click ", e);
     if (e.key === "1") {
-      navigate("/");
+      navigate("/dashboard/dashboard");
     } else if (e.key === "2") {
-      navigate("/users");
+      navigate("/dashboard/users");
     } else {
-      navigate("/sales");
+      navigate("/dashboard/sales");
     }
   };
 
