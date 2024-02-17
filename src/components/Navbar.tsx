@@ -2,6 +2,7 @@ import React from "react";
 import { Avatar, Button, Flex, Input, Layout } from "antd";
 import searchIcone from "../assets/loupe 1.png";
 import notificationIcone from "../assets/notification-bell 1.png";
+import useSearch from "../hooks/useSearch";
 
 const { Header } = Layout;
 
@@ -31,6 +32,8 @@ const buttonStyle: React.CSSProperties = {
 };
 
 const Navbar = () => {
+  const { globalSearch } = useSearch();
+
   return (
     <Header style={headerStyle}>
       <Flex justify="space-between" align="center">
@@ -41,8 +44,13 @@ const Navbar = () => {
             position: "relative",
           }}
         >
-          <Input placeholder="Search" variant="filled" style={inputStyle} />
-          <Button style={buttonStyle}>
+          <Input
+            id="searchField"
+            placeholder="Search"
+            variant="filled"
+            style={inputStyle}
+          />
+          <Button style={buttonStyle} onClick={globalSearch}>
             <img src={searchIcone} alt="" />
           </Button>
         </Flex>

@@ -1,8 +1,11 @@
 import { Avatar, Button, Dropdown, Flex, Table } from "antd";
 import btnImg from "../../assets/options.png";
 import "./UsersTable.css";
+import useSearch from "../../hooks/useSearch";
 
 const UsersTable = ({ data, onMenuClick, fetchData }) => {
+  const { searchedText } = useSearch();
+
   const items = [
     {
       key: "1",
@@ -31,6 +34,15 @@ const UsersTable = ({ data, onMenuClick, fetchData }) => {
         {
           title: "#ID",
           dataIndex: "id",
+          filteredValue: [searchedText.toLowerCase()],
+          onFilter: (value, record) => {
+            return (
+              record.first_name.toLowerCase().includes(value) ||
+              record.last_name.toLowerCase().includes(value) ||
+              record.email.toLowerCase().includes(value) ||
+              record.id.toString().toLowerCase().includes(value)
+            );
+          },
           render: (text, user) => <p style={recordTextStyle}>{user.id}</p>,
         },
         {
