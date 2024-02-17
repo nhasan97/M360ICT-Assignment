@@ -22,9 +22,42 @@ table thead tr th::before {
 
 table body tr {
     height: 60px !important;
-
 }
 
 .ant-table-cell {
     border-bottom: none !important;
+}
+
+
+.show {
+    display: flex;
+}
+
+.hidden {
+    display: none;
+}
+
+
+[id*='custom-dropdown'] {
+    background-color: #F0F5FA;
+    padding: 8px;
+    border-radius: 14px;
+    position: absolute;
+    transform: translate(0, 8%);
+    z-index: 10;
+    transition: 10s ease-in-out;
+}
+
+[id*='custom-dropdown'] a {
+    width: 100%;
+    font-size: 12px;
+    font-weight: 500;
+    color: #A7AFBC;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+[id*='custom-dropdown'] a:hover {
+    background-color: #e3f0fd;
+
 }

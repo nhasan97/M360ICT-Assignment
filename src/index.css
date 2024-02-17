@@ -7,3 +7,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.common-btn-styling {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}

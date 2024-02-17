@@ -1,25 +1,18 @@
-import { Avatar, Button, Dropdown, Flex, Table } from "antd";
+import { Avatar, Button, Flex, Pagination, Table } from "antd";
 import btnImg from "../../assets/options.png";
 import "./UsersTable.css";
 import useSearch from "../../hooks/useSearch";
+import { Link } from "react-router-dom";
 
-const UsersTable = ({ data, onMenuClick, fetchData }) => {
+const UsersTable = ({ data, page, fetchData, showDropDown }) => {
   const { searchedText } = useSearch();
 
-  const items = [
-    {
-      key: "1",
-      label: "1st item",
-    },
-    {
-      key: "2",
-      label: "2nd item",
-    },
-    {
-      key: "3",
-      label: "3rd item",
-    },
-  ];
+  const usersTableConatinerStyle: React.CSSProperties = {
+    width: "100%",
+    height: "calc(100% - 120px)",
+    borderRadius: "12px",
+    overflowY: "auto",
+  };
 
   const recordTextStyle: React.CSSProperties = {
     fontSize: "14px",
@@ -28,74 +21,94 @@ const UsersTable = ({ data, onMenuClick, fetchData }) => {
   };
 
   return (
-    <Table
-      style={{ border: "none !important" }}
-      columns={[
-        {
-          title: "#ID",
-          dataIndex: "id",
-          filteredValue: [searchedText.toLowerCase()],
-          onFilter: (value, record) => {
-            return (
-              record.first_name.toLowerCase().includes(value) ||
-              record.last_name.toLowerCase().includes(value) ||
-              record.email.toLowerCase().includes(value) ||
-              record.id.toString().toLowerCase().includes(value)
-            );
+    <div style={usersTableConatinerStyle}>
+      <Table
+        sticky
+        columns={[
+          {
+            title: "#ID",
+            dataIndex: "id",
+            filteredValue: [searchedText.toLowerCase()],
+            onFilter: (value, record) => {
+              return (
+                record.first_name.toLowerCase().includes(value) ||
+                record.last_name.toLowerCase().includes(value) ||
+                record.email.toLowerCase().includes(value) ||
+                record.id.toString().toLowerCase().includes(value)
+              );
+            },
+            width: "7%",
+            render: (text, user) => <p style={recordTextStyle}>{user.id}</p>,
           },
-          render: (text, user) => <p style={recordTextStyle}>{user.id}</p>,
-        },
-        {
-          title: "USER",
-          dataIndex: "first_name",
-          key: "first_name",
-          align: "left",
-          render: (text, user) => (
-            <Flex justify="flex-start" align="center" gap={6}>
-              <Avatar
-                shape="square"
-                size={60}
-                style={{ marginRight: "10px", borderRadius: "15px" }}
-                src={user.avatar}
-              />
-              <p style={recordTextStyle}>
-                {user.first_name} {user.last_name}
-              </p>
-            </Flex>
-          ),
-        },
-        {
-          title: "EMAIL",
-          dataIndex: "email",
-          render: (text, user) => <p style={recordTextStyle}>{user.email}</p>,
-        },
-        {
-          title: "OPTIONS",
-          render: () => (
-            <>
-              <Dropdown menu={{ items, onClick: onMenuClick }}>
+          {
+            title: "USER",
+            dataIndex: "first_name",
+            key: "first_name",
+            align: "left",
+            width: "40%",
+            render: (text, user) => (
+              <Flex justify="flex-start" align="center" gap={6}>
+                <Avatar
+                  shape="square"
+                  size={60}
+                  style={{ marginRight: "10px", borderRadius: "15px" }}
+                  src={user.avatar}
+                />
+                <p style={recordTextStyle}>
+                  {user.first_name} {user.last_name}
+                </p>
+              </Flex>
+            ),
+          },
+          {
+            title: "EMAIL",
+            dataIndex: "email",
+            width: "51%",
+            render: (text, user) => <p style={recordTextStyle}>{user.email}</p>,
+          },
+          {
+            title: "OPTIONS",
+            width: "12%",
+            render: (text, user) => (
+              <div style={{ position: "relative" }}>
                 <Button
-                  style={{
-                    backgroundColor: "transparent",
-                    border: "none",
+                  id={"customBtn" + user.id}
+                  className="common-btn-styling"
+                  onClick={() => {
+                    showDropDown("custom-dropdown" + user.id.toString());
                   }}
                 >
                   <img src={btnImg} alt="" />
                 </Button>
-              </Dropdown>
-            </>
-          ),
-        },
-      ]}
-      dataSource={data.data}
-      pagination={{
-        pageSize: data.per_page,
-        total: data.total,
-        onChange: (page) => {
+
+                <Flex
+                  vertical
+                  justify="flex-start"
+                  align="center"
+                  id={"custom-dropdown" + user.id}
+                  className="hidden"
+                >
+                  <Link to={"/add-user"}>Add User</Link>
+                  <Link to={`/update-user/${user.id}`}>Update</Link>
+                  <Link to={`/delete-user/${user.id}`}>Delete</Link>
+                </Flex>
+              </div>
+            ),
+          },
+        ]}
+        dataSource={data.data}
+        pagination={false}
+      ></Table>
+      <Pagination
+        style={{ position: "fixed", left: "249px", bottom: "0" }}
+        pageSize={data.per_page}
+        total={data.total}
+        current={page}
+        onChange={(page) => {
           fetchData(page);
-        },
-      }}
-    ></Table>
+        }}
+      />
+    </div>
   );
 };
 

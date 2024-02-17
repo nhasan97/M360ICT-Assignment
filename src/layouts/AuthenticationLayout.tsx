@@ -5,7 +5,7 @@ import AuthenticationLayoutNavbar from "../components/AuthenticationLayoutNavbar
 
 const { Content } = Layout;
 
-const layoutStyle = {
+const layoutStyle: React.CSSProperties = {
   maxWidth: "calc(1440px)",
   width: "100%",
   height: "100vh",
@@ -20,6 +20,9 @@ const contentStyle: React.CSSProperties = {
   height: "calc(100% - 45.81px)",
   lineHeight: "120px",
   backgroundColor: "white",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
   // border: "1px solid red",
 };
 

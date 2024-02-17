@@ -1,6 +1,7 @@
 .ant-select>div {
     padding: 14px 18px !important;
     background-color: #F0F5FA !important;
+    border: none !important;
     border-radius: 16px !important;
     font-size: 12px !important;
     font-weight: 500 !important;
