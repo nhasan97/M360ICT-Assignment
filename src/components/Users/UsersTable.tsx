@@ -88,8 +88,8 @@ const UsersTable = ({ data, page, fetchData, showDropDown }) => {
                   id={"custom-dropdown" + user.id}
                   className="hidden"
                 >
-                  <Link to={"/add-user"}>Add User</Link>
-                  <Link to={`/update-user/${user.id}`}>Update</Link>
+                  <Link to={"/dashboard/add-user"}>Add User</Link>
+                  <Link to={`/dashboard/update-user/${user.id}`}>Update</Link>
                   <Link to={`/delete-user/${user.id}`}>Delete</Link>
                 </Flex>
               </div>

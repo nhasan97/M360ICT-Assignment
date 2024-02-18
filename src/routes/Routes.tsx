@@ -6,6 +6,8 @@ import AuthenticationLayout from "../layouts/AuthenticationLayout";
 import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
 import Sales from "../pages/Sales/Sales";
+import AddUser from "../pages/AddUser/AddUser";
+import UpdateUser from "../pages/UpdateUser/UpdateUser";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
       {
         path: "sales",
         element: <Sales></Sales>,
+      },
+      {
+        path: "add-user",
+        element: <AddUser></AddUser>,
+      },
+      {
+        path: "update-user/:id",
+        element: <UpdateUser></UpdateUser>,
       },
     ],
   },
