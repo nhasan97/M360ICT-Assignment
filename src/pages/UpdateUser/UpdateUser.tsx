@@ -1,6 +1,5 @@
-import { Button, Form, Input, Upload } from "antd";
+import { Button, Flex, Form, Input } from "antd";
 import React from "react";
-import { UploadOutlined } from "@ant-design/icons";
 import { User } from "../../models/user.model";
 import { useParams } from "react-router-dom";
 import { useUpdateUserMutation, useUserQuery } from "../../api/usersAPI";
@@ -15,10 +14,8 @@ const UpdateUser = () => {
   const [updateUser] = useUpdateUserMutation();
 
   const onFinish = async (values: User) => {
-    const res = await updateUser(data.data);
-    if (res.data.updatedAt) {
-      toast.success("Updated Successfully!");
-    }
+    await updateUser(data.data);
+    toast.success("Updated Successfully!");
   };
 
   const onFinishFailed = (errorInfo: User) => {
@@ -33,10 +30,17 @@ const UpdateUser = () => {
     avatar?: string;
   };
 
-  const formStyle: React.CSSProperties = {
-    //   width: "100%",
-    maxWidth: "600",
+  const addUserPageStyle: React.CSSProperties = {
+    width: "100%",
+    height: "100%",
+    overflowY: "auto",
   };
+
+  const addUserContainerStyle: React.CSSProperties = {
+    width: "50%",
+    height: "100%",
+  };
+
   if (isLoading) {
     return <Loading></Loading>;
   } else if (isFetching) {
@@ -47,100 +51,88 @@ const UpdateUser = () => {
 
   if (isSuccess) {
     return (
-      <div>
-        <Form
-          name="basic"
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          style={formStyle}
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          autoComplete="off"
+      <Flex vertical justify="center" align="center" style={addUserPageStyle}>
+        <Flex
+          vertical
+          justify="center"
+          align="center"
+          style={addUserContainerStyle}
         >
-          <Form.Item<FieldType>
-            label="Your ID"
-            name="id"
-            hidden
-            initialValue={data.data.id}
-            rules={[{ required: true, message: "Please input your username!" }]}
+          <Form
+            name="basic"
+            className="forms"
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
           >
-            <Input readOnly required hidden />
-          </Form.Item>
-
-          <Form.Item<FieldType>
-            label="First Name"
-            name="first_name"
-            initialValue={data.data.first_name}
-            rules={[{ required: true, message: "Please input your username!" }]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item<FieldType>
-            label="Last Name"
-            name="last_name"
-            initialValue={data.data.last_name}
-            rules={[{ required: true, message: "Please input your username!" }]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item<FieldType>
-            label="Email"
-            name="email"
-            initialValue={data.data.email}
-            rules={[
-              {
-                type: "email",
-                required: true,
-                message: "Please input your email!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item<FieldType>
-            label="Profile Image"
-            name="avatar"
-            initialValue={data.data.avatar}
-            rules={[
-              {
-                required: true,
-                message: "Please choose an image!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          {/* <Form.Item<FieldType>
-            label="Profile Image"
-            name="avatar"
-            rules={[
-              {
-                required: true,
-                message: "Please choose an image!",
-              },
-            ]}
-          >
-            <Upload
-              action="https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188"
-              listType="picture"
-              // fileList={}
+            <Form.Item<FieldType>
+              label="Your ID"
+              name="id"
+              hidden
+              initialValue={data.data.id}
+              rules={[
+                { required: true, message: "Please input your username!" },
+              ]}
             >
-              <Button icon={<UploadOutlined />}>Upload</Button>
-            </Upload>
-          </Form.Item> */}
+              <Input readOnly required hidden />
+            </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
+            <Form.Item<FieldType>
+              name="first_name"
+              initialValue={data.data.first_name}
+              rules={[
+                { required: true, message: "Please input your username!" },
+              ]}
+            >
+              <Input placeholder="First Name" className="form-input" />
+            </Form.Item>
+
+            <Form.Item<FieldType>
+              name="last_name"
+              initialValue={data.data.last_name}
+              rules={[
+                { required: true, message: "Please input your username!" },
+              ]}
+            >
+              <Input placeholder="Last Name" className="form-input" />
+            </Form.Item>
+
+            <Form.Item<FieldType>
+              name="email"
+              initialValue={data.data.email}
+              rules={[
+                {
+                  type: "email",
+                  required: true,
+                  message: "Please input your email!",
+                },
+              ]}
+            >
+              <Input placeholder="Email" className="form-input" />
+            </Form.Item>
+
+            <Form.Item<FieldType>
+              name="avatar"
+              initialValue={data.data.avatar}
+              rules={[
+                {
+                  required: true,
+                  message: "Please choose an image!",
+                },
+              ]}
+            >
+              <Input placeholder="Photo URL" className="form-input" />
+            </Form.Item>
+
+            <Form.Item>
+              <Button type="primary" htmlType="submit" className="form-btn">
+                Update
+              </Button>
+            </Form.Item>
+          </Form>
+        </Flex>
+      </Flex>
     );
   }
 };

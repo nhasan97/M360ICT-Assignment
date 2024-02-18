@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import { Layout, Flex } from "antd";
 import Sidebar from "../components/Sidebar/Sidebar";
@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar";
 
 const { Content } = Layout;
 
-const layoutStyle = {
+const layoutStyle: React.CSSProperties = {
   maxWidth: "calc(1440px)",
   width: "100%",
   height: "100vh",
@@ -21,23 +21,23 @@ const contentStyle: React.CSSProperties = {
   lineHeight: "120px",
   backgroundColor: "white",
 };
-const getUser = () => {
-  let user = localStorage.getItem("user");
-  if (user) {
-    user = JSON.parse(user);
-  } else {
-    user = null;
-  }
-  return user;
-};
+// const getUser = () => {
+//   let user = localStorage.getItem("user");
+//   if (user) {
+//     user = JSON.parse(user);
+//   } else {
+//     user = null;
+//   }
+//   return user;
+// };
 
 const DashboardLayout = () => {
-  const [user, setUser] = useState(getUser());
+  // const [user, setUser] = useState(getUser());
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem("user");
+  //   setUser(null);
+  // };
 
   return (
     <div>

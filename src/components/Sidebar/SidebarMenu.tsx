@@ -76,7 +76,7 @@ const SidebarMenu = () => {
         className="menu-ul"
         onClick={onClick}
         style={menuStyle}
-        defaultSelectedKeys={["1"]}
+        defaultSelectedKeys={["2"]}
         defaultOpenKeys={["sub1"]}
         mode="inline"
         items={items}
