@@ -1,32 +1,40 @@
 import { Button, Form, Input, Upload } from "antd";
 import React from "react";
 import { UploadOutlined } from "@ant-design/icons";
-
-const randomIdGenerator = (min: number, max: number) =>
-  Math.floor(Math.random() * (max - min + 1)) + min;
-
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
-
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
-
-type FieldType = {
-  id?: number;
-  email?: string;
-  first_name?: string;
-  last_name?: string;
-  avatar?: string;
-};
-
-const formStyle: React.CSSProperties = {
-  //   width: "100%",
-  maxWidth: "600",
-};
+import { useAddUserMutation } from "../../api/usersAPI";
+import { User } from "../../models/user.model";
+import toast from "react-hot-toast";
 
 const AddUser = () => {
+  const [addUser] = useAddUserMutation();
+
+  const randomIdGenerator = (min: number, max: number) =>
+    Math.floor(Math.random() * (max - min + 1)) + min;
+
+  const onFinish = async (values: User) => {
+    const res = await addUser(values);
+    if (res.data.createdAt) {
+      toast.success("Added Successfully!");
+    }
+  };
+
+  const onFinishFailed = (errorInfo: object) => {
+    toast.error("Action Failed");
+  };
+
+  type FieldType = {
+    id?: number;
+    email?: string;
+    first_name?: string;
+    last_name?: string;
+    avatar?: string;
+  };
+
+  const formStyle: React.CSSProperties = {
+    //   width: "100%",
+    maxWidth: "600",
+  };
+
   return (
     <div>
       <Form
@@ -82,6 +90,9 @@ const AddUser = () => {
         <Form.Item<FieldType>
           label="Profile Image"
           name="avatar"
+          initialValue={
+            "https://i.ibb.co/R4sPcP1/pngtree-stunning-modern-villa-entryway-rendered-in-3d-at-twilight-picture-image-3748237.png"
+          }
           rules={[
             {
               required: true,

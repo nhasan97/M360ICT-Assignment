@@ -3,9 +3,18 @@ import btnImg from "../../assets/options.png";
 import "./UsersTable.css";
 import useSearch from "../../hooks/useSearch";
 import { Link } from "react-router-dom";
+import { useDeleteUserMutation } from "../../api/usersAPI";
+import toast from "react-hot-toast";
 
 const UsersTable = ({ data, page, fetchData, showDropDown }) => {
   const { searchedText } = useSearch();
+
+  const [deleteUser] = useDeleteUserMutation();
+
+  const handleDelete = async (id: number) => {
+    await deleteUser(id);
+    toast.success("Deleted Successfully!");
+  };
 
   const usersTableConatinerStyle: React.CSSProperties = {
     width: "100%",
@@ -90,7 +99,14 @@ const UsersTable = ({ data, page, fetchData, showDropDown }) => {
                 >
                   <Link to={"/dashboard/add-user"}>Add User</Link>
                   <Link to={`/dashboard/update-user/${user.id}`}>Update</Link>
-                  <Link to={`/delete-user/${user.id}`}>Delete</Link>
+                  <Link
+                    to={""}
+                    onClick={() => {
+                      handleDelete(user.id);
+                    }}
+                  >
+                    Delete
+                  </Link>
                 </Flex>
               </div>
             ),
