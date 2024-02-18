@@ -1,20 +1,47 @@
 import { Button, Checkbox, Flex, Form, Input } from "antd";
-
-const onFinish = (values) => {
-  console.log("Success:", values);
-};
-
-const onFinishFailed = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
-
-type FieldType = {
-  username?: string;
-  password?: string;
-  remember?: string;
-};
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../redux/slices/AuthSlice";
+import { useNavigate } from "react-router-dom";
+import SomethingWrong from "../../components/SomethingWrong";
 
 const SignIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const { loading, error } = useSelector((state) => {
+    state.user;
+  });
+  const dispatch = useDispatch();
+
+  const onFinish = (values) => {
+    const userCredentials: object = {
+      email,
+      password,
+    };
+
+    dispatch(loginUser(userCredentials)).then((result) => {
+      if (result.payload) {
+        setEmail("");
+        setPassword("");
+        navigate("/");
+      }
+    });
+    console.log(email, userCredentials);
+    console.log("Success:", values);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
+  type FieldType = {
+    email?: string;
+    password?: string;
+    remember?: string;
+  };
+
   return (
     // <Flex
     //   justify="center"
@@ -32,11 +59,17 @@ const SignIn = () => {
       autoComplete="off"
     >
       <Form.Item<FieldType>
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: "Please input your username!" }]}
+        label="Email"
+        name="email"
+        rules={[
+          {
+            type: "email",
+            required: true,
+            message: "Please input your email!",
+          },
+        ]}
       >
-        <Input />
+        <Input value={email} onChange={(e) => setEmail(e.target.value)} />
       </Form.Item>
 
       <Form.Item<FieldType>
@@ -44,7 +77,10 @@ const SignIn = () => {
         name="password"
         rules={[{ required: true, message: "Please input your password!" }]}
       >
-        <Input.Password />
+        <Input.Password
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
       </Form.Item>
 
       <Form.Item<FieldType>
@@ -60,6 +96,8 @@ const SignIn = () => {
           Submit
         </Button>
       </Form.Item>
+
+      {/* {error && <SomethingWrong error={error}></SomethingWrong>} */}
     </Form>
     // </Flex>
   );
