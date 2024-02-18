@@ -8,11 +8,13 @@ import SignUp from "../pages/SignUp/SignUp";
 import Sales from "../pages/Sales/Sales";
 import AddUser from "../pages/AddUser/AddUser";
 import UpdateUser from "../pages/UpdateUser/UpdateUser";
+import Error from "../pages/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <AuthenticationLayout></AuthenticationLayout>,
+    errorElement: <Error></Error>,
     children: [
       {
         path: "/",
